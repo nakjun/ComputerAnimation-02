@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public RuntimeAnimatorController idleController;
     public RuntimeAnimatorController jumpController;
     public RuntimeAnimatorController runController;
+    public RuntimeAnimatorController crouchController;
 
     private Animator animator;
 
@@ -25,48 +27,12 @@ public class PlayerController : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        animator.runtimeAnimatorController = idleController;
+        animator.runtimeAnimatorController = runController;
     }
 
     void Update()
     {
         Vector2 moveDirection = Vector2.zero;
-
-        // if (Input.GetKey(KeyCode.LeftArrow))
-        // {
-        //     moveDirection.x -= 1f;
-        //     isMovingRight = false; // 왼쪽 이동
-        // }
-        // if (Input.GetKey(KeyCode.RightArrow))
-        // {
-        //     moveDirection.x += 1f;
-        //     isMovingRight = true; // 오른쪽 이동
-        // }
-
-        // // 이동 방향이 바뀌면 스프라이트 뒤집기
-        // if (moveDirection.x > 0f)
-        // {
-        //     spriteRenderer.flipX = false; // 오른쪽 바라봄
-        // }
-        // else if (moveDirection.x < 0f)
-        // {
-        //     spriteRenderer.flipX = true; // 왼쪽 바라봄
-        // }
-
-        if (!isJumping)
-        {
-            if (moveDirection.x != 0f)
-            {
-                animator.runtimeAnimatorController = runController;
-            }
-            else
-            {
-                animator.runtimeAnimatorController = idleController;
-            }
-        }   
-
-        moveDirection = moveDirection.normalized;
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
@@ -77,6 +43,21 @@ public class PlayerController : MonoBehaviour
         {
             UpdateJump();
         }
+        else
+        {
+            // 점프 중이 아닐 때만 애니메이션 상태 변경
+            if (Input.GetKey(KeyCode.DownArrow)) // 아래 방향키를 누르고 있으면 엎드리기(GetKeyDown 대신 GetKey 사용)
+            {
+                animator.runtimeAnimatorController = crouchController;
+            }
+            else
+            {
+                animator.runtimeAnimatorController = runController;
+            }
+        }
+
+        moveDirection = moveDirection.normalized;
+        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
     }
 
     void StartJump()
@@ -97,7 +78,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, startPosition.y, transform.position.z);
             isJumping = false;
-            animator.runtimeAnimatorController = idleController;
+            animator.runtimeAnimatorController = runController;
         }
         else
         {

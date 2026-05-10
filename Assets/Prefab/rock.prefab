@@ -165,3 +165,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemMover
   scrollSpeed: 5
   targetCamera: {fileID: 0}
+  isObstacle: 0
+  collisionSound: {fileID: 8300000, guid: 4b4dd7245f6104c8c8eb07ccf6b386ed, type: 3}

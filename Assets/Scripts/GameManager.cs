@@ -24,6 +24,17 @@ public class GameManager : MonoBehaviour
         hp = maxHp;
     }
 
+    void Start()
+    {
+        if (bgmClip != null)
+        {
+            bgmSource = gameObject.AddComponent<AudioSource>();
+            bgmSource.clip = bgmClip;
+            bgmSource.loop = true;
+            bgmSource.Play();
+        }
+    }
+
     [SerializeField]
     GameObject itemPrefab;
     
@@ -37,7 +48,7 @@ public class GameManager : MonoBehaviour
     Vector2 itemSpawnYRange = new Vector2(-2f, 2f);
 
     [SerializeField]
-    float scrollSpeed = 10f;
+    public float scrollSpeed = 10f;
 
     [SerializeField]
     Camera targetCamera;
@@ -49,19 +60,46 @@ public class GameManager : MonoBehaviour
     TextMeshProUGUI scoreText;
 
     [SerializeField]
+    TextMeshProUGUI distanceText;
+
+    [SerializeField]
     int itemsPerObstacle = 10;
+
+    [Header("Speed Scale")]
+    [SerializeField]
+    float speedIncreaseRate = 0.5f;
+
+    [SerializeField]
+    float maxScrollSpeed = 30f;
+
+    [Header("BGM")]
+    [SerializeField]
+    AudioClip bgmClip;
+
+    AudioSource bgmSource;
 
     float spawnTimer;
     int itemSpawnCount;
+    float distance;
 
     [SerializeField]
     int maxHp = 3;
     int hp;
     bool isGameOver = false;
 
+    [SerializeField]
+    PlayerController playerController;
+
     void Update()
     {
         if (isGameOver) return;
+
+        scrollSpeed = Mathf.Min(scrollSpeed + speedIncreaseRate * Time.deltaTime, maxScrollSpeed);
+        Debug.Log($"Scroll Speed: {scrollSpeed}");
+
+        distance += scrollSpeed * Time.deltaTime;
+        if (distanceText != null)
+            distanceText.text = $"Distance: {(int)distance}m";
 
         spawnTimer += Time.deltaTime;
         if (spawnTimer < itemSpawnInterval)
