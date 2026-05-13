@@ -13,15 +13,15 @@ using UnityEngine;
 public class ItemMover : MonoBehaviour
 {
     [HideInInspector]
-    public float scrollSpeed = 5f;
-
-    [HideInInspector]
     public Camera targetCamera;
 
     [HideInInspector]
     public bool isObstacle = false;
 
-    public AudioClip collisionSound; // 충돌 사운드
+    [HideInInspector]
+    public int bonusScore = 0;
+
+    public AudioClip collisionSound;
 
     void Start()
     {
@@ -32,7 +32,7 @@ public class ItemMover : MonoBehaviour
 
     void Update()
     {
-        transform.position += Vector3.left * scrollSpeed * Time.deltaTime;
+        transform.position += Vector3.left * GameManager.Instance.scrollSpeed * Time.deltaTime;
 
         if (transform.position.x < GetCameraLeftX())
             Destroy(gameObject);
@@ -46,7 +46,7 @@ public class ItemMover : MonoBehaviour
         if (isObstacle)
             GameManager.Instance?.TakeDamage();
         else
-            GameManager.Instance?.AddScore();
+            GameManager.Instance?.AddScore(bonusScore > 0 ? bonusScore : 1);
 
         if (collisionSound != null)
             AudioSource.PlayClipAtPoint(collisionSound, transform.position);

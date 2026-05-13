@@ -1128,7 +1128,7 @@ Transform:
   m_GameObject: {fileID: 1231012414}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.56633, y: -1.3501, z: 0}
+  m_LocalPosition: {x: 0.56633, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1744,12 +1744,17 @@ MonoBehaviour:
   itemParent: {fileID: 1231012415}
   scoreText: {fileID: 438308090}
   distanceText: {fileID: 1450570497}
-  itemsPerObstacle: 10
+  itemsPerObstacle: 2
   speedIncreaseRate: 0.5
   maxScrollSpeed: 30
   bgmClip: {fileID: 0}
   maxHp: 3
   playerController: {fileID: 0}
+  platformPrefab: {fileID: 5355280048957514523, guid: a1a01d8c03b493f449ffe380b9473b87, type: 3}
+  platformSpawnChance: 0.5
+  bonusScoreAmount: 5
+  bonusItemCount: 2
+  bonusItemSpacing: 1.5
 --- !u!82 &2017412657
 AudioSource:
   m_ObjectHideFlags: 0

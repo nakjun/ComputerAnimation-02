@@ -90,6 +90,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     PlayerController playerController;
 
+    [Header("Platform Settings")]
+    public GameObject platformPrefab;
+    [SerializeField] float platformSpawnChance = 0.1f;
+    [SerializeField] int bonusScoreAmount = 5;
+    [SerializeField] int bonusItemCount = 3;
+    [SerializeField] float bonusItemSpacing = 1.5f;
+    
+    private Platform currentPlatform = null;
+
     void Update()
     {
         if (isGameOver) return;
@@ -108,10 +117,22 @@ public class GameManager : MonoBehaviour
         spawnTimer = 0f;
 
         itemSpawnCount++;
-        if (itemSpawnCount >= itemsPerObstacle)
+
+        if (currentPlatform == null)
         {
-            itemSpawnCount = 0;
-            SpawnObstacle();
+            if (Random.value < platformSpawnChance)
+            {
+                SpawnPlatform();
+            }
+            else if (itemSpawnCount >= itemsPerObstacle)
+            {
+                itemSpawnCount = 0;
+                SpawnObstacle();
+            }
+            else
+            {
+                SpawnItem();
+            }
         }
         else
         {
@@ -148,14 +169,16 @@ public class GameManager : MonoBehaviour
         if (mover == null)
             mover = item.AddComponent<ItemMover>();
 
-        mover.scrollSpeed = scrollSpeed;
         mover.targetCamera = targetCamera != null ? targetCamera : Camera.main;
     }
 
     void SpawnObstacle()
     {
         float spawnX = GetCameraRightX();
-        float spawnY = Random.Range(itemSpawnYRange.x, itemSpawnYRange.y);
+        
+        float[] possibleY = new float[] { -3.0f, -1.3f, -0.5f };
+        float spawnY = possibleY[Random.Range(0, possibleY.Length)];
+   
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0f);
 
         GameObject obstacle = Instantiate(obstaclePrefab, spawnPosition, Quaternion.identity, itemParent);
@@ -164,9 +187,44 @@ public class GameManager : MonoBehaviour
         if (mover == null)
             mover = obstacle.AddComponent<ItemMover>();
 
-        mover.scrollSpeed = scrollSpeed;
         mover.targetCamera = targetCamera != null ? targetCamera : Camera.main;
         mover.isObstacle = true;
+    }
+
+    void SpawnPlatform()
+    {
+        if (platformPrefab == null) return;
+
+        float spawnX = GetCameraRightX();
+        Vector3 spawnPosition = new Vector3(spawnX, -1.3f, 0f);
+
+        GameObject platform = Instantiate(platformPrefab, spawnPosition, Quaternion.identity, itemParent);
+
+        Platform platformScript = platform.GetComponent<Platform>();
+        if (platformScript != null)
+            platformScript.targetCamera = targetCamera != null ? targetCamera : Camera.main;
+
+        currentPlatform = platformScript;
+
+        for (int i = 0; i < bonusItemCount; i++)
+        {
+            Vector3 itemPos = spawnPosition + new Vector3(i * bonusItemSpacing, -0.8f, 0f);
+            GameObject item = Instantiate(itemPrefab, itemPos, Quaternion.identity, itemParent);
+
+            ItemMover mover = item.GetComponent<ItemMover>();
+            if (mover != null)
+                mover.enabled = false;
+
+            item.AddComponent<BonusItem>().bonusScore = bonusScoreAmount;
+
+            if (platformScript != null)
+                platformScript.AddBonusItem(item);
+        }
+    }
+
+    public void OnPlatformDestroyed()
+    {
+        currentPlatform = null;
     }
 
     float GetCameraRightX()

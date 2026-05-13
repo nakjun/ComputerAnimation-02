@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5623526775746937594
+--- !u!1 &5355280048957514523
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6234205414762659707}
-  - component: {fileID: 8904232696299516271}
-  - component: {fileID: 1796846295617146670}
-  - component: {fileID: 7261798231300259962}
+  - component: {fileID: 3122246103699005522}
+  - component: {fileID: 4355190755284014020}
+  - component: {fileID: 4722647147676065756}
+  - component: {fileID: 5717654903416746624}
   m_Layer: 0
-  m_Name: rock
+  m_Name: Foothold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6234205414762659707
+--- !u!4 &3122246103699005522
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5623526775746937594}
+  m_GameObject: {fileID: 5355280048957514523}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 15, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8904232696299516271
+--- !u!212 &4355190755284014020
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5623526775746937594}
+  m_GameObject: {fileID: 5355280048957514523}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -83,23 +83,23 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 4b8df3e837c15134e966ef69ce5e536d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15fdc3c0ac15e4a62b3f968392db8b58, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.53, y: 0.53}
+  m_Size: {x: 0.32, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!60 &1796846295617146670
-PolygonCollider2D:
+--- !u!61 &4722647147676065756
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5623526775746937594}
+  m_GameObject: {fileID: 5355280048957514523}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -131,39 +131,24 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.53, y: 0.53}
-    newSize: {x: 0.53, y: 0.53}
+    oldSize: {x: 0.32, y: 0.16}
+    newSize: {x: 0.32, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.13499999, y: 0.125}
-      - {x: 0.13163084, y: 0.24836916}
-      - {x: 0.085, y: 0.255}
-      - {x: -0.044999998, y: 0.255}
-      - {x: -0.21499999, y: 0.044999998}
-      - {x: -0.265, y: -0.125}
-      - {x: -0.265, y: -0.255}
-      - {x: -0.225, y: -0.265}
-      - {x: 0.099849254, y: -0.22489254}
-      - {x: 0.09884058, y: -0.18208145}
-      - {x: 0.10266036, y: -0.08399134}
-  m_UseDelaunayMesh: 1
---- !u!114 &7261798231300259962
+  m_Size: {x: 0.32, y: 0.16}
+  m_EdgeRadius: 0
+--- !u!114 &5717654903416746624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5623526775746937594}
+  m_GameObject: {fileID: 5355280048957514523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bea1a51d5026b9c48bbf1cbb19a525b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 33f2cdda13b08fa4eb60030dbdcdc0e9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemMover
-  scrollSpeed: 5
+  m_EditorClassIdentifier: Assembly-CSharp::Platform
   targetCamera: {fileID: 0}
-  isObstacle: 0
-  collisionSound: {fileID: 8300000, guid: 4b4dd7245f6104c8c8eb07ccf6b386ed, type: 3}
