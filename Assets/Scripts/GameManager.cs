@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
             if (mover != null)
                 mover.enabled = false;
 
-            item.AddComponent<BonusItem>().bonusScore = bonusScoreAmount;
+            mover.bonusScore = bonusScoreAmount;
 
             if (platformScript != null)
                 platformScript.AddBonusItem(item);

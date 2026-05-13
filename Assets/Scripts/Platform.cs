@@ -21,13 +21,13 @@ public class Platform : MonoBehaviour
         Vector3 movement = Vector3.left * GameManager.Instance.scrollSpeed * Time.deltaTime;
         transform.position += movement;
 
-        for (int i = bonusItems.Count - 1; i >= 0; i--)
-        {
-            if (bonusItems[i] != null)
-                bonusItems[i].transform.position += movement;
-            else
-                bonusItems.RemoveAt(i);
-        }
+        // for (int i = bonusItems.Count - 1; i >= 0; i--)
+        // {
+        //     if (bonusItems[i] != null)
+        //         bonusItems[i].transform.position += movement;
+        //     else
+        //         bonusItems.RemoveAt(i);
+        // }
 
         if (transform.position.x < GetCameraLeftX())
             Destroy(gameObject);
